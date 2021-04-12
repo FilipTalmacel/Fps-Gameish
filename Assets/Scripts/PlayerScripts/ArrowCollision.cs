@@ -25,7 +25,11 @@ public class ArrowCollision : MonoBehaviour
     void Update()
     {
         bool kinematicArrow = arrowRb.isKinematic;
-        if(!kinematicArrow)transform.rotation = Quaternion.LookRotation(arrowRb.velocity.normalized, Vector3.up);
+        if (!kinematicArrow)
+        {
+            lastRotation = Quaternion.LookRotation(arrowRb.velocity.normalized, Vector3.up);
+            transform.rotation = lastRotation;
+        }
 
     }
     public void OnCollisionEnter(Collision collision)
@@ -33,18 +37,12 @@ public class ArrowCollision : MonoBehaviour
         if (collision.collider.tag != "Arrow" && collision.collider.tag != "Weapon" && collision.collider.tag != "Player")
         {
             hasHitSomething = true;
-            Stick();
+            arrowRb.collisionDetectionMode = CollisionDetectionMode.ContinuousSpeculative;
+            arrowRb.isKinematic = true;
+            transform.rotation = lastRotation;
             Destroy(gameObject, maxArrowTime);
             transform.SetParent(collision.collider.transform);
         }
         if(collision.collider.tag == "Enemy") bloodSplatter.Play();
     }
-
-    void Stick()
-    {
-        arrowRb.collisionDetectionMode = CollisionDetectionMode.ContinuousSpeculative;
-        arrowRb.isKinematic = true;
-    }
-
-    
 }

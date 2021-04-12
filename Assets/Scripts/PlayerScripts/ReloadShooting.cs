@@ -37,8 +37,8 @@ public class ReloadShooting : MonoBehaviour
         {
             Rigidbody arrowRb = newArrow.GetComponent<Rigidbody>();
             isReloaded = false;
+            arrowRb.velocity = cameraView.transform.forward * arrowPower;
             arrowRb.isKinematic = false;
-            arrowRb.AddForce(cameraView.transform.forward * arrowPower,ForceMode.Impulse);
             arrowRb.collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;
             newArrow.transform.parent = null;
             newArrow = null;

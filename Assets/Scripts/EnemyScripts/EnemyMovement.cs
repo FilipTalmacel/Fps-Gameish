@@ -67,7 +67,7 @@ public class EnemyMovement : MonoBehaviour
         if((distance < enemyMeleeEngage || enemyShooting.currentArrows == 0) && detected)
         {
             //Change to melee
-            //enemyAgent.stoppingDistance = 2f;
+            enemyAgent.stoppingDistance = 2f;
         }
 
         if (healthBar.healthSlider.value <= 0 && !dead)
@@ -92,7 +92,7 @@ public class EnemyMovement : MonoBehaviour
     }
     private void OnCollisionEnter(Collision collision)
     {
-        //if (dead && collision.collider.tag == "Arrow") enemyRb.AddForce(-transform.forward * 2f, ForceMode.Impulse);
+        if (dead && collision.collider.tag == "Arrow") enemyRb.AddForce(-transform.forward * 2f, ForceMode.Impulse);
     }
 
     void Dead()
