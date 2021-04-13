@@ -4907,7 +4907,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1557011717783401265}
-  - component: {fileID: 1557011717783401264}
   - component: {fileID: 1557011717783401279}
   m_Layer: 0
   m_Name: arrowSpawn
@@ -4930,25 +4929,6 @@ Transform:
   m_Father: {fileID: 1557011717149036437}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1557011717783401264
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1557011717783401266}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5dcd88348a10b9d4c9eab68102afcbae, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  arrow: {fileID: 267342114081524320, guid: 884f755efe589fe4091da1f220b0d462, type: 3}
-  arrowPower: 40
-  arrowsShot: 0
-  isReloaded: 0
-  itemsMask:
-    serializedVersion: 2
-    m_Bits: 0
 --- !u!114 &1557011717783401279
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4963,7 +4943,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   reloadTime: 3
   arrowPower: 40
+  arrowsShot: 0
+  maxArrows: 0
+  currentArrows: 0
   arrow: {fileID: 5030957373837661902, guid: 945921d4fcc2c99479ef5b9a10bca84f, type: 3}
+  enemyShooting: {fileID: 1557011717783401279}
 --- !u!1 &2081412455322041733
 GameObject:
   m_ObjectHideFlags: 0
@@ -5397,7 +5381,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2204905108018438376}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.55, z: 15}
+  m_LocalPosition: {x: 0, y: 2.97, z: 15}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 2204905105945016208}
@@ -5533,8 +5517,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f22c3e72f0c04242a2d443cdf32975e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyDetectionRadius: 15
-  enemyShootingRadius: 12
+  enemyDetectionRadius: 30
+  enemyShootingRadius: 20
+  enemyFleeRadius: 10
+  enemyMeleeEngage: 5
+  movementModifier: 5
   detected: 0
   deathBloodSplatter: {fileID: 5317638181161140903}
   enemyShooting: {fileID: 1557011717783401279}

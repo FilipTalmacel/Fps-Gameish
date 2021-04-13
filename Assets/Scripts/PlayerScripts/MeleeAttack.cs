@@ -6,6 +6,9 @@ public class MeleeAttack : MonoBehaviour
 {
     public Animation meleeAnimation;
 
+    public int DamadgeModifier = 20;
+    private float startTime, endTime;
+
     public bool weaponIsAway;
 
     public WeaponChange weaponChange;
@@ -21,7 +24,7 @@ public class MeleeAttack : MonoBehaviour
     {
         if (!weaponIsAway)
         {
-            if (Input.GetMouseButtonDown(0)) meleeAnimation.Play("Attack");
+            if (Input.GetMouseButtonUp(0)) meleeAnimation.Play("Attack");
 
             if (Input.GetMouseButtonDown(1)) meleeAnimation.CrossFade("Block", 0.5f);
             else if (Input.GetMouseButtonUp(1)) meleeAnimation.CrossFade("Unblock", 0.5f);
@@ -38,6 +41,10 @@ public class MeleeAttack : MonoBehaviour
                 GetSword();
             }
         }
+
+        if (Input.GetMouseButtonDown(0)) startTime = Time.time;
+        if (Input.GetMouseButtonUp(0)) endTime = Time.time;
+        HeavyAttack();
     }
     public void PutAway()
     {
@@ -48,5 +55,11 @@ public class MeleeAttack : MonoBehaviour
     {
         meleeAnimation.Play("GetSword");
         weaponIsAway = false;
+    }
+
+    public void HeavyAttack()
+    {
+        if (endTime - startTime > 1f) DamadgeModifier = 35;
+        else DamadgeModifier = 20;
     }
 }

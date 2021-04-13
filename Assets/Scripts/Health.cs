@@ -12,6 +12,8 @@ public class Health : MonoBehaviour
 
     public Text healthNumber;
 
+    public MeleeAttack meleeAttack;
+
     void Start()
     {
         currentHealth = maxHealth;
@@ -33,5 +35,8 @@ public class Health : MonoBehaviour
         
         if(gameObject.tag == "Enemy" && collision.collider.tag == "Arrow") TakeDamdge(Random.Range(5, 55));
         else if(gameObject.tag == "Player" && collision.collider.tag == "EnemyArrow") TakeDamdge(Random.Range(5, 55));
+
+        if (collision.collider.CompareTag("Sword")) TakeDamdge(meleeAttack.DamadgeModifier);
+        Debug.Log(collision.collider.tag);
     }
 }

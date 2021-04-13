@@ -50,6 +50,5 @@ public class EnemyShooting : MonoBehaviour
         currentArrows = maxArrows - arrowsShot;
         if (currentArrows <= 0) enemyShooting.enabled = false;
         else enemyShooting.enabled = true;
-        Debug.Log(currentArrows);
     }
 }
