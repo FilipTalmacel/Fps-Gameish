@@ -41,7 +41,7 @@ public class MeleeAttack : MonoBehaviour
                 GetSword();
             }
         }
-
+        DamadgeModifier = 20;
         if (Input.GetMouseButtonDown(0)) startTime = Time.time;
         if (Input.GetMouseButtonUp(0)) endTime = Time.time;
         HeavyAttack();

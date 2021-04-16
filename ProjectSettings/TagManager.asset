@@ -9,6 +9,7 @@ TagManager:
   - Enemy
   - EnemyArrow
   - Sword
+  - enemyMelee
   layers:
   - Default
   - TransparentFX

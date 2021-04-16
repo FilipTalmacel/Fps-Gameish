@@ -10,39 +10,32 @@ public class EnemyMovement : MonoBehaviour
     public float enemyFleeRadius = 10f;
     public float enemyMeleeEngage = 5f;
 
-    public float movementModifier = 5f;
+    public float movementModifier = 100f;
 
     public bool detected;
-    bool dead;
+    bool meleeRange;
+
+    public GameObject bow;
+    public GameObject boxerGloves;
+
 
     Transform target;
     NavMeshAgent enemyAgent;
-    Rigidbody enemyRb;
-    public ParticleSystem deathBloodSplatter;     
     
     public EnemyShooting enemyShooting;
-    public HealthBar healthBar;
-    public EnemyMovement enemyMovement;
-    
-    public GameObject deadEnemyText;
-    public GameObject healthBarUI;
-    
+    public EnemyManager enemyManager;
     
 
     void Start()
     {
         target = PlayerManager.playerInstance.player.transform;
         enemyAgent = GetComponent<NavMeshAgent>();
-        dead = false;
-
-        
+        meleeRange = false;
     }
 
 
     void Update()
     {
-
-        enemyRb = GetComponent<Rigidbody>();
         float distance = Vector3.Distance(target.position, transform.position);
         if (distance <= enemyDetectionRadius)
         {
@@ -59,31 +52,33 @@ public class EnemyMovement : MonoBehaviour
         }
         else enemyShooting.enabled = false;
 
-        if (distance < enemyFleeRadius && detected)
+        if (distance < enemyFleeRadius && detected && !meleeRange)
         {
             enemyAgent.Move(-transform.forward * Time.deltaTime * movementModifier);
         }
 
         if((distance < enemyMeleeEngage || enemyShooting.currentArrows == 0) && detected)
         {
-            //Change to melee
+            meleeRange = true;
+            bow.SetActive(false);
+            boxerGloves.SetActive(true);
             enemyAgent.stoppingDistance = 2f;
+            enemyAgent.SetDestination(target.position);
         }
-
-        if (healthBar.healthSlider.value <= 0 && !dead)
+        else
         {
-            Dead();
+            meleeRange = false;
+            bow.SetActive(true);
+            boxerGloves.SetActive(false);
         }
         //deathBloodSplatter.transform.rotation = Quaternion.Euler(90f, 0f , 90f);
     }
-
     void FaceTarget()
     {
         Vector3 direction = (target.position - transform.position).normalized;
         Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0 , direction.z));
         transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 5f) ;
     }
-
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.black;
@@ -92,18 +87,6 @@ public class EnemyMovement : MonoBehaviour
     }
     private void OnCollisionEnter(Collision collision)
     {
-        if (dead && collision.collider.tag == "Arrow") enemyRb.AddForce(-transform.forward * 2f, ForceMode.Impulse);
-    }
-
-    void Dead()
-    {
-        dead = true;
-        deathBloodSplatter.Play();
-        enemyShooting.enabled = false;
-        enemyMovement.enabled = false;
-        deadEnemyText.SetActive(true);
-        healthBarUI.SetActive(false);
-        enemyRb.isKinematic = false;
-        enemyAgent.enabled = false;
+        //if (enemyManager.dead && collision.collider.tag == "Arrow") enemyRb.AddForce(-transform.forward * 2f, ForceMode.Impulse);
     }
 }

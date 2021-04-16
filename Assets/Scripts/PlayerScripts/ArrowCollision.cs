@@ -13,12 +13,13 @@ public class ArrowCollision : MonoBehaviour
     public ParticleSystem bloodSplatter;
 
     public float maxArrowTime = 20f;
-
+    //public float damadgeModifier;
 
     // Start is called before the first frame update
     void Start()
     {
         arrowRb = gameObject.GetComponent<Rigidbody>();
+        //damadgeModifier = Random.Range(5, 55);
     }
 
     // Update is called once per frame
