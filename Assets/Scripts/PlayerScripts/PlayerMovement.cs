@@ -20,7 +20,7 @@ public class PlayerMovement : MonoBehaviour
     public Animation animationCrouching;
 
     private Vector3 acceleration;
-    private Vector3 velocity;
+    public Vector3 velocity;
 
     bool isGrounded;
     public bool hasJumped;

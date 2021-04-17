@@ -4,7 +4,9 @@ using UnityEngine;
 
 public class EnemyPunching : MonoBehaviour
 {
-    public int damadegModifier = 5;
+    public int damadegModifier;
+    float waitTime = 3f;
+    int animationPercentage;
 
     public GameObject boxerGloves;
 
@@ -20,9 +22,23 @@ public class EnemyPunching : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(boxerGloves.activeInHierarchy == true)
+        waitTime -= Time.deltaTime;
+        if(waitTime <= 0)
         {
-            punchingAnim.Play("ContinuosPunching");
+            animationPercentage = Random.Range(0, 6);
+            waitTime = 3f;
         }
+        
+        if (animationPercentage <= 3 && boxerGloves.activeInHierarchy == true)
+        {
+            punchingAnim.CrossFade("ContinuosPunching");
+            damadegModifier = 5;
+        }
+        else if (animationPercentage >= 4 && boxerGloves.activeInHierarchy == true)
+        {
+            punchingAnim.CrossFade("Smash");
+            damadegModifier = 35;
+        }
+        Debug.Log(animationPercentage);
     }
 }

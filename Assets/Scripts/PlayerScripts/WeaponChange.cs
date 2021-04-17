@@ -11,6 +11,7 @@ public class WeaponChange : MonoBehaviour
     public bool swordActive;
     public bool crossBowActive;
     public bool staffActive;
+
     
     // Start is called before the first frame update
     void Start()
@@ -23,6 +24,7 @@ public class WeaponChange : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
             Sword();
@@ -35,14 +37,11 @@ public class WeaponChange : MonoBehaviour
         }
 
 
-        if (!crossBowActive || crossBowAiming.weaponIsAway)
-        {
-            reloadShooting.enabled = false;
-        }
-        else
-        {
-            reloadShooting.enabled = true;
-        }
+        if (!crossBowActive || crossBowAiming.weaponIsAway) reloadShooting.enabled = false;
+        else reloadShooting.enabled = true;
+
+        if (!swordActive || meleeAttack.weaponIsAway) meleeAttack.swordCollider.enabled = false;
+        else meleeAttack.swordCollider.enabled = true;
 
 
 

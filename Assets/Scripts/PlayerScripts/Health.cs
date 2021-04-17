@@ -14,6 +14,7 @@ public class Health : MonoBehaviour
 
     public MeleeAttack meleeAttack;
     public EnemyPunching enemyPunching;
+    public PlayerMovement playerMovement;
     //Component whoKnows;
 
     void Start()
@@ -37,7 +38,11 @@ public class Health : MonoBehaviour
         //whoKnows = collision.collider.GetComponent<EnemyPunching>();
         if(collision.collider.tag == "EnemyArrow") TakeDamdge(Random.Range(5, 55));
 
-        if (collision.collider.tag == "enemyMelee") TakeDamdge(enemyPunching.damadegModifier);
+        if (collision.collider.tag == "enemyMelee") TakeDamdge(enemyPunching.damadegModifier/2);
+        if (collision.collider.name == "Left" && collision.collider.name == "Right")
+        {
+            playerMovement.velocity.y = Mathf.Sqrt(6 * -2f * Physics.gravity.y);
+        }
         //if (collision.collider.tag == "Sword") TakeDamdge(meleeAttack.DamadgeModifier);
         //Debug.Log(collision.collider.tag);
     }

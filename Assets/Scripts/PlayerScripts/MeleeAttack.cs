@@ -12,6 +12,7 @@ public class MeleeAttack : MonoBehaviour
     public bool weaponIsAway;
 
     public WeaponChange weaponChange;
+    public BoxCollider swordCollider;
 
     // Start is called before the first frame update
     void Start()
@@ -22,6 +23,10 @@ public class MeleeAttack : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        GameObject thisObject = this.gameObject;
+        swordCollider = thisObject.GetComponent<BoxCollider>();
+        DamadgeModifier = 20;
+
         if (!weaponIsAway)
         {
             if (Input.GetMouseButtonUp(0)) meleeAnimation.Play("Attack");
@@ -41,7 +46,7 @@ public class MeleeAttack : MonoBehaviour
                 GetSword();
             }
         }
-        DamadgeModifier = 20;
+
         if (Input.GetMouseButtonDown(0)) startTime = Time.time;
         if (Input.GetMouseButtonUp(0)) endTime = Time.time;
         HeavyAttack();

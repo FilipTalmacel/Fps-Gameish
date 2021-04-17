@@ -25,6 +25,7 @@ public class EnemyShooting : MonoBehaviour
         target = PlayerManager.playerInstance.body.transform;
 
         maxArrows = Random.Range(5, 25);
+        //maxArrows = 0;
         currentArrows = maxArrows;
     }
 
